@@ -1,5 +1,5 @@
 {
-  "name": "codev-ag-grid-odata",
+  "name": "volvo-ag-grid-odata",
   "version": "1.0.40",
   "description": "Implementation Odata ServerSideDatasource for ag-grid",
   "main": "build/index.js",
