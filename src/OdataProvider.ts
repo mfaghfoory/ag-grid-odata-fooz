@@ -916,16 +916,10 @@ export class OdataProvider implements OdataProviderOptions {
 
     if (!pivotActive && isServerMode) {
       //ver 31+
-      //@ts-expect-error
       if (params.api?.setPivotResultColumns) {
-        //@ts-expect-error
         params.api?.setPivotResultColumns(null)
-      } else if (params.columnApi?.setPivotResultColumns) {
-        // if ((params as any).columnApi.isPivotMode()) {
-        params.columnApi?.setPivotResultColumns([])
-        // }
       } else {
-        params.columnApi?.setSecondaryColumns?.([])
+        throw new Error('setPivotResultColumns not found in ag-grid api')
       }
     }
     const options = me.getOdataOptions(params)
@@ -1029,14 +1023,13 @@ export class OdataProvider implements OdataProviderOptions {
               if (this.beforeSetSecondaryColumns) {
                 this.beforeSetSecondaryColumns(secondaryColDefs)
               }
-              const fn =
-                //@ts-expect-error
-                params.api?.setPivotResultColumns ||
-                params.columnApi?.setPivotResultColumns
+              const fn = params.api?.setPivotResultColumns
               if (fn) {
                 fn(secondaryColDefs)
               } else {
-                params.columnApi?.setSecondaryColumns?.(secondaryColDefs)
+                throw new Error(
+                  'setPivotResultColumns not found in ag-grid api'
+                )
               }
             }
           }
@@ -1219,7 +1212,7 @@ export class OdataProvider implements OdataProviderOptions {
     let isNeedCountForServerSide = false
     if (isServerMode) {
       try {
-        isNeedCountForServerSide = !params.api.getModel().isLastRowIndexKnown()
+        isNeedCountForServerSide = !params.api.isLastRowIndexKnown()
       } catch {}
     }
     if (
