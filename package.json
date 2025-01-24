@@ -1,6 +1,6 @@
 {
   "name": "codev-ag-grid-odata",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "description": "Implementation Odata ServerSideDatasource for ag-grid",
   "main": "build/index.js",
   "types": "build/index.d.ts",
